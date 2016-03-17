@@ -67,9 +67,6 @@ class Attendance extends HR_Controller
 			$test = $this->payslip->calculate($range['employee_number'], $start_date, $end_date, TRUE);
 		}
 
-		
-
-		
 		$this->import_plugin_script(['bootstrap-datepicker/js/bootstrap-datepicker.min.js']);
 		$this->import_page_script(['view-attendance.js']);
 		$this->generate_page('attendance/view', compact(['data', 'search_employee', 'test']));

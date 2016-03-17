@@ -40,7 +40,7 @@
                   <td><?= $in->format('d-M-Y')?></td>
                   <td><?= $in->format('h:i A')?></td>
                   <td><?= $out->format('h:i A')?></td>
-                  <td><?= preset($row, 'am_hrs', 0) + preset($row, 'pm_hrs', 0) ?> hrs</td>
+                  <td><?= round(preset($row, 'am_hrs', 0) + preset($row, 'pm_hrs', 0), 2) ?> hrs</td>
                 </tr>
               <?php endforeach;?>
             <?php endif;?>

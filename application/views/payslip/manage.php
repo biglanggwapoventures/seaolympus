@@ -53,7 +53,7 @@
                     <tr class="active"><td colspan="3" class="text-center text-bold">Earnings</td></tr>
                     <tr><td colspan="2" class="text-center">Particulars</td><td>Amount</td></tr>
                     <tr><td>Regular Pay</td><td><strong><?= preset($data, 'total_regular_days', 0)?></strong> <small>Days X </small><strong><?= preset($data, 'daily_wage', 0)?></strong></td><td class="text-bold text-right"><?= number_format(preset($data, 'regular_pay', 0), 2)?></td></tr>
-                    <tr><td>Overtime Pay</td><td><strong><?= preset($data, 'total_overtime_hrs', 0)?></strong> <small>Hours X </small><strong><?= preset($data, 'overtime_hrly', 0)?></strong></td><td class="text-bold text-right"><?= number_format(preset($data, 'regular_overtime_pay', 0), 2)?></td></tr>
+                    <tr><td>Overtime Pay</td><td><strong><?= preset($data, 'total_overtime_hrs', 0)?></strong> <small>Hours X </small><strong><?= number_format(preset($data, 'overtime_hrly', 0), 2)?></strong></td><td class="text-bold text-right"><?= number_format(preset($data, 'regular_overtime_pay', 0), 2)?></td></tr>
                     <tr><td colspan="2">Wage Adjustment</td><td><input type="text" name="adjustment" class="form-control"></td></tr>
                     
                     <tr class="active"><td colspan="3" class="text-center text-bold">Additional</td></tr>
