@@ -265,8 +265,8 @@ class Employee_model extends CI_Model
 
     public function set_attendance($id, $datetime)
     {
-        //check if the employee has already timedin
-        $this->db->where('datetime_out IS NULL AND datetime_in IS NOT NULL AND DAY(datetime_in) = DAY(CURDATE())');
+        //check if the employee has already timed in
+        $this->db->where("datetime_out IS NULL AND datetime_in IS NOT NULL AND DAY(datetime_in) = DAY('{$datetime}')");
         $time_in = $this->db->get_where('employee_attendance', ['employee_id' => $id])->row_array();
         if($time_in){
             $this->db->update('employee_attendance', ['datetime_out' => $datetime], ['employee_id' => $id, 'datetime_in' => $time_in['datetime_in']]);
