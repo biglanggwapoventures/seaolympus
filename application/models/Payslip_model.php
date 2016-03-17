@@ -259,6 +259,11 @@ class Payslip_model extends CI_Model
 		return $this->db->get()->result_array();
 	}
 
+	public function adjust($id, $amount)
+	{
+		return $this->db->update('payroll', ['wage_adjustment' => $amount], ['id' => $id]);
+	}
+
 	public function get_by_employee($id, $employee_id)
 	{
 		$data = $this->db->get_where('payroll', ['id' => $id, 'employee_id' => $employee_id])->row_array();

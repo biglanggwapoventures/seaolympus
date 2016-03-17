@@ -21,6 +21,7 @@ class My_payslip extends HR_Controller
 	public function view($id)
 	{
 		$employee_id = $this->input->get('employee_number') ? $this->input->get('employee_number') : user_id();
+		$this->import_page_script('adjust-payslip.js');
 		$this->load->model('Employee_model', 'employee');
 		$this->generate_page('my-payslip/view', [
 			'payslip' => $this->payslip->get_by_employee($id, $employee_id),

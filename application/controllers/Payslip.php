@@ -67,6 +67,17 @@ class Payslip extends HR_Controller
 		]);
 	}
 
+
+	public function adjust()
+	{
+		$input = elements(['id', 'amount'], $this->input->post());
+		if($this->payslip->adjust($input['id'], $input['amount'])){
+			$this->json_response(['result' => TRUE]);
+			return;
+		}
+		$this->json_response(['result' => FALSE]);
+	}
+
 	public function store()
 	{
 		$input = elements(['month', 'employee_number' ,'adjustment'], $this->input->post());

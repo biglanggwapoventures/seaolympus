@@ -17,7 +17,7 @@
   <!-- Default box -->
 
   <div class="box box-solid">
-    <form class="form-horizontal">
+    <form class="form-horizontal" data-action="<?= base_url("payslip/adjust/{$payslip['id']}")?>">
       <div class="box-body">
         <div class="alert alert-danger hidden"><ul class="list-unstyled"></ul></div>
         <div class="form-group">
@@ -54,7 +54,17 @@
                   <?php $net_pay += $overtime_pay; ?>
                   <tr><td>Overtime Pay</td><td><strong><?= number_format($payslip['overtime_hours_rendered'], 2)?></strong> <small>Hours X </small><strong><?= number_format($payslip['current_overtime_rate'], 2)?></strong></td><td class="text-bold text-right"><?= number_format($overtime_pay, 2)?></td></tr>
                   <?php $net_pay += $payslip['wage_adjustment']; ?>
-                  <tr><td colspan="2">Wage Adjustment</td><td class="text-right"><strong><?= number_format($payslip['wage_adjustment'], 2)?></strong></td></tr>
+                  <tr>
+                    <td colspan="2">Wage Adjustment</td>
+                    <td class="text-right">
+                      <?php if(role_is('po')):?>
+                        <input type="hidden" name="id" value="<?= $payslip['id']?>"/>
+                        <input type="number" name="amount" class="form-control" value="<?= $payslip['wage_adjustment']?>"/>
+                      <?php else:?>
+                        <strong><?= number_format($payslip['wage_adjustment'], 2)?></strong>
+                      <?php endif;?>
+                    </td>
+                  </tr>
                   <tr class="active"><td colspan="3" class="text-center text-bold">Additional</td></tr>
                   <tr><td colspan="2" class="text-center">Particulars</td><td>Amount</td></tr>
                   <?php $additionals = 0;?>
@@ -89,13 +99,17 @@
                 <?php $net_pay -= $late; ?>
                 <tr><td>Late</td><td><strong><?= number_format($payslip['late_minutes'], 2)?></strong> <small>Minutes X </small><strong><?= number_format($payslip['current_late_penalty'], 2)?></strong></td><td class="text-bold text-right"><?= number_format($late, 2)?></td></tr>
                 <tr class="success"><td colspan="2" class="text-center text-bold">NET PAY</td><td class="text-bold text-right" style="font-size:130%"><?= number_format($net_pay, 2)?></td></tr>
-               
               </tbody>
              </table>
           </div>
         </div>
         <!-- <div class=> -->
       </div><!-- /.box-body -->
+      <?php if(role_is('po')):?>
+        <div class="box-footer clearfix">
+          <button type="submit" class="btn btn-success btn-flat">Save payslip</button>
+        </div><!-- /.box-footer -->
+      <?php endif;?>
     </form>
   </div><!-- /.box -->
 </section>
