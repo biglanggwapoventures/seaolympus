@@ -79,7 +79,7 @@ if(!function_exists('account_type')){
 			case 'sv': return 'Supervisor Account';
 			case 're': return 'Regular Employee Account';
 			case 'po': return 'Payroll Officer Account';
-			case 'po': return 'HR Officer Account';
+			case 'hr': return 'HR Officer Account';
 			default: return NULL;
 		}
 	}	

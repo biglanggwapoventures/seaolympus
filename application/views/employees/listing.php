@@ -11,11 +11,12 @@
     <div class="box-body no-padding">
       <table class="table table-hover table-striped">
       	<thead>
-			<tr><th>Employee #</th><th>Last Name</th><th>First name</th><th>Middle name</th><th>Gender</th><th>Department</th><th>Position</th><th>Date hired</th></tr>      		
+			<tr><th><i class="fa fa-lock"></i></th><th>Employee #</th><th>Last Name</th><th>First name</th><th>Middle name</th><th>Gender</th><th>Department</th><th>Position</th><th>Date hired</th></tr>      		
       	</thead>
       	<tbody>
       		<?php foreach($items AS $row):?>
-      			<tr>
+      			<tr data-pk="<?= $row['id']?>">
+              <td><input type="checkbox" class="lock" <?= intval($row['is_locked']) ? 'checked="checked"' : ''?>/></td>
               <td><a href="<?= base_url("employees/edit/{$row['id']}")?>"><?= $row['id']?></a></td>
       				<td><?= $row['lastname']?></td>
       				<td><?= $row['firstname']?></td>
@@ -30,4 +31,5 @@
       </table>
     </div><!-- /.box-body -->
   </div><!-- /.box -->
+  <input type="hidden" id="lockUrl" data-value="<?= base_url('employees/toggle_lock')?>" disabled />
 </section>

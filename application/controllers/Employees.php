@@ -15,6 +15,7 @@ class Employees extends HR_Controller
 
 	public function index()
 	{
+		$this->import_page_script('employee-list.js');
 		$this->generate_page('employees/listing', [
 			'items' => $this->employee->all()
 		]);
@@ -105,6 +106,15 @@ class Employees extends HR_Controller
 			'messages' => ['Unable to update employee. Please try again later.']
 		]));
 		return;
+	}
+
+	public function toggle_lock()
+	{
+		if(!$this->employee->exists($this->input->post('id'))){
+			$this->json_response(['result' => FALSE, 'messages' => ['Employee doesn\'t exit']]);
+			return;
+		}
+		$this->json_response(['result' => (bool)$this->employee->toggle_lock($this->input->post('id'))]);
 	}
 
 	public function _perform_validation($mode)

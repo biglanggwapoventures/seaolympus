@@ -10,7 +10,6 @@
     <!-- Tabs within a box -->
     <ul class="nav nav-tabs pull-right">
       <li class="active"><a href="#basic" data-toggle="tab">Personal Information</a></li>
-      <li><a href="#wage" data-toggle="tab">Wage</a></li>
       <li class="pull-left header"><?= $title ?></li>
     </ul>
     <div class="tab-content">
@@ -188,11 +187,6 @@
           <input type="hidden" data-name="index"  data-value="<?= isset($data['particulars']) &&  $data['particulars'] ? count($data['particulars']) : 1?>"/>
             <a href="<?=$url?>" class="btn btn-default cancel pull-right btn-flat">Cancel</a>
             <button type="submit" class="btn btn-success btn-flat">Submit</button>
-        </form>
-      </div>
-      <div class="tab-pane" id="wage">
-        <form class="form-horizontal">
-          
         </form>
       </div>
     </div>

@@ -304,5 +304,11 @@ class Employee_model extends CI_Model
         return $this->db->get()->result_array();
     }
 
+    public function toggle_lock($id)
+    {   
+        $this->db->set('is_locked', '!is_locked', FALSE);
+        return $this->db->where('id', $id)->update($this->table);
+    }
+
 
 }

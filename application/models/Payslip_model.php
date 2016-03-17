@@ -2,10 +2,10 @@
 
 class Payslip_model extends CI_Model
 {
-	public function calculate($employee_id, $from, $to)
+	public function calculate($employee_id, $from, $to, $bypass_check = FALSE)
 	{
 
-		if(($id = $this->check($employee_id, $from, $to)) !== TRUE){
+		if((($id = $this->check($employee_id, $from, $to)) !== TRUE) && !$bypass_check){
 			return $id;
 		}
 
@@ -228,7 +228,9 @@ class Payslip_model extends CI_Model
 			];
 		}
 
-		$this->db->insert_batch('payroll_particulars', $particulars);
+		if(!empty($particulars)){
+			$this->db->insert_batch('payroll_particulars', $particulars);
+		}
 
 		$this->db->trans_complete();
 

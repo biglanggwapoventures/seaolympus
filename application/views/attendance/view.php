@@ -1,6 +1,6 @@
 <section class="content-header">
   <h1>
-    My Attendance
+    Attendance
     <small></small>
   </h1>
 </section>
@@ -30,24 +30,21 @@
         <table class="table table-bordered table-condensed table-striped">
           <thead><tr class="active"><th>Date</th><th>Time in</th><th>Time out</th><th></th></tr></thead>
           <tbody>
-            <?php if(empty($data)): ?>
+            <?php if(empty($test)): ?>
               <tr><td class="text-center" colspan="4">Nothing to display</td></tr>
             <?php endif;?>
-            <?php foreach($data AS $row):?>
+            <?php foreach($test['attendance'] AS $row):?>
               <?php $in = date_create($row['datetime_in']) ?>
               <?php $out = date_create($row['datetime_out']) ?>
               <tr>
                 <td><?= $in->format('d-M-Y')?></td>
                 <td><?= $in->format('h:i A')?></td>
                 <td><?= $out->format('h:i A')?></td>
-                <td></td>
+                <td><?= preset($row, 'am_hrs', 0) + preset($row, 'pm_hrs', 0) ?> hrs</td>
               </tr>
             <?php endforeach;?>
           </tbody>
         </table>
-        <pre class="hidden">
-        <?php print_r($data)?>
-        </pre>
       </div><!-- /.box-body -->
   </div><!-- /.box -->
 </section>
