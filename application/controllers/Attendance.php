@@ -8,7 +8,7 @@ class Attendance extends HR_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('Employee_model', 'employee');
+		$this->load->model(['Employee_model' => 'employee', 'Payslip_model' => 'payslip']);
 		$this->active_nav = '';
 	}
 
@@ -56,14 +56,23 @@ class Attendance extends HR_Controller
 	{
 		$this->active_nav = NAV_VIEW_ATTENDANCE;
 		$data = [];
+		$test=  [];
 		$range = elements(['start_date', 'end_date', 'employee_number'], $this->input->get(), NULL);
 		$start_date = is_valid_date($range['start_date'], 'm/d/Y') ? date_create($range['start_date'])->format('Y-m-d') : date('Y-m-d');
 		$end_date = is_valid_date($range['end_date'], 'm/d/Y') ? date_create($range['end_date'])->format('Y-m-d') : date('Y-m-d');
 		$search_employee = TRUE;
-		$data = $this->employee->attendance($range['employee_number'], $start_date, $end_date);
+
+		if($this->employee->exists($range['employee_number'])){
+			$data = $this->employee->attendance($range['employee_number'], $start_date, $end_date);
+			$test = $this->payslip->calculate($range['employee_number'], $start_date, $end_date, TRUE);
+		}
+
+		
+
+		
 		$this->import_plugin_script(['bootstrap-datepicker/js/bootstrap-datepicker.min.js']);
 		$this->import_page_script(['view-attendance.js']);
-		$this->generate_page('attendance/view', compact(['data', 'search_employee']));
+		$this->generate_page('attendance/view', compact(['data', 'search_employee', 'test']));
 	}
 
 
