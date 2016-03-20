@@ -29,7 +29,14 @@
         <div class="form-group">
           <label class="col-sm-2 control-label">Duration</label>
           <div class="col-sm-5">
-            <p class="form-control-static"><?= date('m/d/Y', strtotime($data['date_start']))?> - <?= date('m/d/Y', strtotime($data['date_end']))?></p>
+            <p class="form-control-static">
+              <?= date('m/d/Y', strtotime($data['date_start']))?> - <?= date('m/d/Y', strtotime($data['date_end']))?>
+              <?php if($data['halfday'] === 'am'):?>
+                (AM only)
+              <?php elseif($data['halfday'] === 'pm'):?>
+                (PM only)
+              <?php endif;?>
+            </p>
           </div>
         </div>
         <hr/>

@@ -41,11 +41,14 @@
             </div>
              <div class="form-group">
               <label class="col-sm-3 control-label">&nbsp;</label>
-              <div class="col-sm-4">
+              <div class="col-sm-2">
                 <div class="radio"><label><input type="radio" class="halfday" name="halfday" value="am"/> Halfday AM</label></div>
               </div>
-              <div class="col-sm-4">
+              <div class="col-sm-2">
                 <div class="radio"><label><input type="radio" class="halfday" name="halfday" value="pm"/> Halfday PM</label></div>
+              </div>
+              <div class="col-sm-2">
+                <div class="radio"><label><input type="radio" class="halfday" name="halfday" value="wd"/> Wholeday</label></div>
               </div>
             </div>
             <hr>

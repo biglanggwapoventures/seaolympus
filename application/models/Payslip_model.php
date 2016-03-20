@@ -88,16 +88,11 @@ class Payslip_model extends CI_Model
 					
 					$actual_hrs_rendered += $actual_am_hrs;
 
-					if($time_out >= $o_time_out_pm){ //ni timeout sa sakto
-						$total_regular_hrs += $required_hrs_am;
-					}else{ 
-						if($time_out <= $o_time_out_am){ //ni undertime sa buntag
-							$actual_am_hrs = (($time_out - $o_time_in_am) / 60 / 60);
-						}
-						$total_regular_hrs += $actual_am_hrs;
-					}
+					$am_payable = $actual_hrs_rendered > $required_hrs_am ? $required_hrs_am : $actual_hrs_rendered;
 
-					$row['am_hrs'] = $actual_am_hrs;
+					$total_regular_hrs += $am_payable;
+
+					$row['am_hrs'] = $am_payable;
 
 					$dates[$date]['am'] = $row['am_hrs'] ;
 					
@@ -109,6 +104,7 @@ class Payslip_model extends CI_Model
 
 						// late still in threshold, accumulate late
 						$total_late_minutes += ($temp_in_PM > 0) ? $temp_in_PM : 0;
+
 						$actual_pm_hrs = ($time_out - $o_time_in_pm) / 60 / 60;
 
 						if($actual_pm_hrs > 0){
@@ -176,7 +172,7 @@ class Payslip_model extends CI_Model
 		}, $employee_data['particulars']);
 
 		$data['daily_wage'] = $employee_data['daily_rate'];
-		$data['overtime_hrly'] = ($employee_data['daily_rate'] * $employee_data['overtime_rate']) /  $required_hrs;
+		$data['overtime_hrly'] = round(($employee_data['daily_rate'] * ($employee_data['overtime_rate']) / 100) /  $required_hrs, 2);
 		$data['late_penalty'] = $employee_data['late_penalty'];
 
 		$data['total_regular_days'] = round($total_regular_hrs/$required_hrs, 2);

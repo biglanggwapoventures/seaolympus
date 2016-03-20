@@ -144,7 +144,10 @@
           <div class="form-group">
             <label class="col-sm-2 control-label"><span class="fa fa-asterisk text-danger"></span> Overtime rate</label>
             <div class="col-sm-3">
-              <input name="overtime_rate" min="0" step="0.01" value="<?= preset($data, 'overtime_rate', 0)?>" class="form-control"/>
+              <div class="input-group">
+                <input type="text" class="form-control"  name="overtime_rate" value="<?= preset($data, 'overtime_rate', 0)?>" aria-describedby="basic-addon2">
+                <span class="input-group-addon" id="basic-addon2">%</span>
+              </div>
             </div>
           </div>
           <div class="form-group">

@@ -121,10 +121,16 @@ class Employees extends HR_Controller
 	{
 		if($mode === MODE_CREATE){
 			$this->form_validation->set_rules('rfid_uid', 'RFID UID', 'trim|is_unique[employees.rfid_uid]');
+			$this->form_validation->set_rules('sss_number', 'SSS #', 'required|trim|is_unique[employees.sss_number]');
+			$this->form_validation->set_rules('pagibig_number', 'PAG-IBIG #', 'required|trim|is_unique[employees.pagibig_number]');
+			$this->form_validation->set_rules('tin_number', 'TIN #', 'required|trim|is_unique[employees.tin_number]|');
 			$this->form_validation->set_rules('email_address', 'email address', 'required|valid_email|is_unique[employees.email_address]');
 		}else{
 			$this->form_validation->set_rules('rfid_uid', 'RFID UID', 'callback__validate_rfid_uid');
 			$this->form_validation->set_rules('email_address', 'email address', 'required|valid_email|callback__validate_email');
+			$this->form_validation->set_rules('sss_number', 'SSS #', 'required|trim|callback__validate_uniqueness[sss_number]');
+			$this->form_validation->set_rules('pagibig_number', 'PAG-IBIG #', 'required|trim|callback__validate_uniqueness[pagibig_number]');
+			$this->form_validation->set_rules('tin_number', 'TIN #', 'required|trim|callback__validate_uniqueness[tin_number]');
 		}
 		$this->form_validation->set_rules('firstname', 'first name', 'required');
 		$this->form_validation->set_rules('lastname', 'last name', 'required');
@@ -137,10 +143,6 @@ class Employees extends HR_Controller
 		$this->form_validation->set_rules('date_hired', 'date hired', 'required|callback__validate_date');
 		$this->form_validation->set_rules('department_id', 'department', 'required|callback__validate_department');
 		$this->form_validation->set_rules('position_id', 'position', 'required|callback__validate_position');
-		$this->form_validation->set_rules('sss_number', 'SSS #', 'required');
-		$this->form_validation->set_rules('pagibig_number', 'PAG-IBIG #', 'required');
-		$this->form_validation->set_rules('tin_number', 'TIN #', 'required');
-
 		$this->form_validation->set_rules('daily_rate', 'daily wage', 'required|callback__validate_numeric');
 		$this->form_validation->set_rules('overtime_rate', 'overtime rate', 'required|callback__validate_numeric');
 		$this->form_validation->set_rules('allowed_late_period', 'allowed late  period', 'required|callback__validate_numeric');
@@ -210,6 +212,12 @@ class Employees extends HR_Controller
 	{
 		$this->form_validation->set_message('_validate_email', 'The %s is already taken by another employee.');
 		return $this->employee->has_unique_email($email, $this->id);
+	}
+
+	public function _validate_uniqueness($val, $column)
+	{
+		$this->form_validation->set_message('_validate_uniqueness', 'The %s is already taken by another employee.');
+		return $this->employee->has_unique($column, $val, $this->id);
 	}
 
 	public function _validate_date($val)

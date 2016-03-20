@@ -162,6 +162,14 @@ class Employee_model extends CI_Model
         return $this->db->select('rfid_uid')->from($this->table)->where('rfid_uid', $uid)->get()->num_rows() === 0;
     }
 
+    public function has_unique($column, $value, $id = FALSE)
+    {
+        if($id){
+            $this->db->where('id !=', $id);
+        }
+        return $this->db->select($column)->from($this->table)->where($column, $value)->get()->num_rows() === 0;
+    }
+
     public function has_unique_email($email, $id = FALSE)
     {
         if($id){
